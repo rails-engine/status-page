@@ -30,7 +30,7 @@ module StatusPage
       rescue Exception => e
         raise RedisException.new(e.message)
       ensure
-        redis.disconnect
+        redis.client.disconnect
       end
 
       private
