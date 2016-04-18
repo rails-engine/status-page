@@ -6,7 +6,7 @@ module StatusPage
 
     class Redis < Base
       class Configuration
-        attr_accessor :url
+        attr_accessor :url, :password
 
         def initialize
           @url = "redis://127.0.0.1:3306/1"
@@ -21,8 +21,7 @@ module StatusPage
 
       def check!
         time = Time.now.to_s(:db)
-
-        redis = ::Redis.new(url: config.url)
+        redis = ::Redis.new(url: config.url, password: config.password)
         redis.set(key, time)
         fetched = redis.get(key)
 
