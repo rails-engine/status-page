@@ -19,10 +19,16 @@ module StatusPage
       add_service(klass)
     end
 
-    def add_custom_service(custom_service_class)
+    def add_custom_service(custom_service_class, opts = {})
       unless custom_service_class < StatusPage::Services::Base
         raise ArgumentError.new 'custom provider class must implement '\
           'StatusPage::Services::Base'
+      end
+
+      if custom_service_class.respond_to?(:configurable?) && custom_service_class.configurable?
+        opts.each_key do |key|
+          custom_service_class.config.send("#{key}=", opts[key])
+        end
       end
 
       add_service(custom_service_class)
