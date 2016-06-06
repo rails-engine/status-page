@@ -77,7 +77,46 @@ end
 
 ```ruby
 StatusPage.configure do
-  self.add_custom_service(CustomProvider)
+  self.add_custom_service(CustomService)
+end
+```
+
+You can also pass some options to your custom service, you'd need to:
+
+* Implement the `StatusPage::Services::Base` class, `check!` method (a check is considered as failed if it raises an exception), and its Configuration class:
+
+```ruby
+class CustomService < StatusPage::Services::Base
+  class Configuration
+    DEFAULT_HOST = "127.0.0.1"
+
+    attr_accessor :host
+
+    def initialize
+      @host = DEFAULT_HOST
+    end
+  end
+
+  def check!
+    raise 'Oh oh!'
+  end
+
+  private
+
+  class << self
+    private
+
+    def config_class
+      CustomService::Configuration
+    end
+  end
+end
+```
+* Add its class to the config, and options as well:
+
+```ruby
+StatusPage.configure do
+  self.add_custom_service(CustomService, host: '192.168.1.2')
 end
 ```
 
