@@ -1,5 +1,3 @@
-require 'redis/namespace'
-
 module StatusPage
   module Services
     class RedisException < StandardError; end
@@ -9,7 +7,7 @@ module StatusPage
         attr_accessor :url
 
         def initialize
-          @url = "redis://127.0.0.1:3306/1"
+          @url = "redis://127.0.0.1:6379/1"
         end
       end
 
@@ -30,7 +28,7 @@ module StatusPage
       rescue Exception => e
         raise RedisException.new(e.message)
       ensure
-        redis.disconnect
+        redis.close
       end
 
       private
