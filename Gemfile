@@ -5,9 +5,9 @@ gem 'rdoc'
 # Specify your gem's dependencies in rediska.gemspec
 gemspec
 
-gem 'rails', '5.0.0.beta3'
+gem 'rails'
 gem 'sqlite3'
-gem 'rspec-rails', '3.5.0.beta1'
+gem 'rspec-rails'
 gem 'database_cleaner'
 gem 'spork'
 gem 'pry'

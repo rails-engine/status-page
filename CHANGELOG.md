@@ -1,4 +1,10 @@
+0.1.5
+-----
+
+- Fix Redis status check.
+
 0.1.4
+-----
 
 - Allow Redis to config host url.
 - Update service options API in configure.
